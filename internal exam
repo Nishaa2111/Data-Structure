@@ -1,0 +1,119 @@
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *next;
+};
+
+int main()
+{
+    Node *head = NULL, *newnode, *temp;
+    int choice = 1;
+    char x;
+
+  do
+    {
+       
+        cout << "\n1. Insert at any position";
+        cout << "\n2. Delete at end";
+        cout << "\n3. Display";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+        {
+            int value, pos, i = 1;
+            cout << "Enter value to insert: ";
+            cin >> value;
+
+            newnode = new Node();
+            newnode->data = value;
+            newnode->next = NULL;
+
+            cout << "Enter position: ";
+            cin >> pos;
+
+            if (pos == 1)
+            {
+                newnode->next = head;
+                head = newnode;
+            }
+            else
+            {
+                temp = head;
+                while (i < pos - 1 && temp != NULL)
+                {
+                    temp = temp->next;
+                    i++;
+                }
+
+                if (temp == NULL)
+                {
+                    cout << "Invalid Position!";
+                }
+                else
+                {
+                    newnode->next = temp->next;
+                    temp->next = newnode;
+                }
+            }
+            break;
+        }
+
+        case 2:
+        {
+            if (head == NULL)
+            {
+                cout << "List is Empty!";
+            }
+            else if (head->next == NULL)
+            {
+                delete head;
+                head = NULL;
+                cout << "Last node deleted.";
+            }
+            else
+            {
+                temp = head;
+                while (temp->next->next != NULL)
+                {
+                    temp = temp->next;
+                }
+
+                delete temp->next;
+                temp->next = NULL;
+                cout << "Last node deleted.";
+            }
+            break;
+        }
+
+        case 3:
+        {
+            if (head == NULL)
+            {
+                cout << "List is Empty!";
+            }
+            else
+            {
+                temp = head;
+                cout << "Linked List: ";
+                while (temp != NULL)
+                {
+                    cout << temp->data << " -> ";
+                    temp = temp->next;
+                }
+                cout << "NULL";
+            }
+            break;
+        }
+    }
+    cout<<"DO you want to continue:";
+    cin>>x;
+    }
+    while(x=='y' || x=='Y');
+    return 0;
+}
